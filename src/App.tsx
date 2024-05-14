@@ -25,7 +25,7 @@ const App = () => {
 
                 <Select>
                     <SelectTrigger className="w-48">
-                        <SelectValue>Sorting algorithm</SelectValue>
+                        <SelectValue placeholder="Sorting algorithm" />
                     </SelectTrigger>
 
                     <SelectContent>
