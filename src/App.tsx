@@ -16,7 +16,7 @@ const App = () => {
     useSetTheme();
 
     return (
-        <div className="flex flex-col items-center p-4">
+        <div className="flex h-dvh flex-col items-center p-4">
             <form className="flex gap-4">
                 <Input
                     placeholder='Numbers array (separated by a ",")'
