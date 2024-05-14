@@ -1,4 +1,4 @@
-import { useSetTheme } from "./ui/useSetTheme";
+import { useSetTheme } from "./lib/useSetTheme";
 
 const App = () => {
     useSetTheme();
