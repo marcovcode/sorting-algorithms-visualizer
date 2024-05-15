@@ -19,8 +19,11 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
+import { sortingAlgorithms } from "./lib/sortingAlgorithms";
+import { toUpperCamelCase } from "./lib/functionNames";
 
-const sortingAlgorithmOptions = ["Bubble sort", "Quick sort"];
+const sortingAlgorithmOptions = ["Bubble sort"];
 
 const formSchema = z.object({
     array: z.string().min(1, "This field is required"),
@@ -28,6 +31,10 @@ const formSchema = z.object({
 });
 
 const App = () => {
+    const [arr, setArr] = useState<number[]>([]);
+    const [swappedIndexes, setSwappedIndexes] = useState<number[] | null>(null);
+    const [previousArray, setPreviousArray] = useState<string>("");
+
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -36,11 +43,29 @@ const App = () => {
         },
     });
 
-    useSetTheme();
-
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        console.log(values);
+        const newArray = values.array;
+        const sortingAlgorithmFunctionName = ("oneStep" +
+            toUpperCamelCase(
+                values.sortingAlgorithm,
+            )) as keyof SortingAlgorithmsType;
+        const parsedArr = newArray.split(",").map((n) => +n);
+
+        if (previousArray === newArray) {
+            const { next, swappedIndexes } =
+                sortingAlgorithms[sortingAlgorithmFunctionName](arr);
+            setArr(next);
+            setSwappedIndexes(swappedIndexes);
+        } else {
+            const { next, swappedIndexes } =
+                sortingAlgorithms[sortingAlgorithmFunctionName](parsedArr);
+            setArr(next);
+            setSwappedIndexes(swappedIndexes);
+            setPreviousArray(newArray);
+        }
     };
+
+    useSetTheme();
 
     return (
         <div className="flex h-dvh flex-col items-center p-4">
@@ -61,7 +86,6 @@ const App = () => {
                                         {...field}
                                     />
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
@@ -105,15 +129,28 @@ const App = () => {
                                         </SelectContent>
                                     </Select>
                                 </FormControl>
-
                                 <FormMessage />
                             </FormItem>
                         )}
                     />
 
-                    <Button>Sort!</Button>
+                    <Button>Next</Button>
                 </form>
             </Form>
+
+            <div className="flex grow flex-col justify-center">
+                <p className="space-x-4">
+                    {arr.map((item, index) => (
+                        <span
+                            key={index}
+                            className={`
+                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} p-2 text-4xl font-bold `}
+                        >
+                            {item}
+                        </span>
+                    ))}
+                </p>
+            </div>
         </div>
     );
 };
