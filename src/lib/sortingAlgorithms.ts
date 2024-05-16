@@ -37,7 +37,31 @@ const oneStepSelectionSort = (arr: number[]) => {
     return { next, swappedIndexes: null };
 };
 
+const oneStepInsertionSort = (arr: number[]) => {
+    const next = [...arr];
+    let keyIndex: number | null = null;
+    let currentIndex: number | null = null;
+
+    for (let i = 1; i < next.length; i++) {
+        keyIndex = i;
+        currentIndex = i - 1;
+        while (currentIndex >= 0 && next[currentIndex] > next[keyIndex]) {
+            const temp = next[currentIndex];
+            next[currentIndex] = next[keyIndex];
+            next[keyIndex] = temp;
+            keyIndex = currentIndex;
+            currentIndex--;
+        }
+        if (keyIndex !== i) {
+            return { next, swappedIndexes: [currentIndex + 1, i] };
+        }
+    }
+
+    return { next, swappedIndexes: null };
+};
+
 export const sortingAlgorithms: SortingAlgorithmsType = {
     oneStepBubbleSort,
     oneStepSelectionSort,
+    oneStepInsertionSort,
 };

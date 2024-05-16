@@ -23,7 +23,11 @@ import { useState } from "react";
 import { sortingAlgorithms } from "./lib/sortingAlgorithms";
 import { toUpperCamelCase } from "./lib/functionNames";
 
-const sortingAlgorithmOptions = ["Bubble sort", "Selection sort"];
+const sortingAlgorithmOptions = [
+    "Bubble sort",
+    "Selection sort",
+    "Insertion sort",
+];
 
 const formSchema = z.object({
     array: z.string().min(1, "This field is required"),

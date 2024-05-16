@@ -7,4 +7,5 @@ interface SortingResult {
 interface SortingAlgorithmsType {
     oneStepBubbleSort: (arr: number[]) => SortingResult;
     oneStepSelectionSort: (arr: number[]) => SortingResult;
+    oneStepInsertionSort: (arr: number[]) => SortingResult;
 }
