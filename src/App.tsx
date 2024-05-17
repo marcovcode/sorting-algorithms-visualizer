@@ -28,6 +28,7 @@ const sortingAlgorithmOptions = [
     "Bubble sort",
     "Selection sort",
     "Insertion sort",
+    "Shell sort",
 ];
 
 const formSchema = z.object({

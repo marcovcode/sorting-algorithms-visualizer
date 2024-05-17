@@ -80,9 +80,33 @@ const oneStepInsertionSort = (arr: number[]) => {
     return { next, swappedIndexes: null };
 };
 
+const oneStepShellSort = (arr: number[]) => {
+    const n = arr.length;
+
+    for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
+        for (let i = gap; i < n; i++) {
+            const temp = arr[i];
+            let j: number;
+
+            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+                arr[j] = arr[j - gap];
+
+            if (j !== i) {
+                arr[j] = temp;
+                return { next: arr, swappedIndexes: [i, j] };
+            }
+
+            arr[j] = temp;
+        }
+    }
+
+    return { next: arr, swappedIndexes: [] };
+};
+
 export const sortingAlgorithms: SortingAlgorithmsType = {
     oneStepNaiveSort,
     oneStepBubbleSort,
     oneStepSelectionSort,
     oneStepInsertionSort,
+    oneStepShellSort,
 };
