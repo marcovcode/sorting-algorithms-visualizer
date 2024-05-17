@@ -83,7 +83,7 @@ const App = () => {
             <Form {...form}>
                 <form
                     onSubmit={form.handleSubmit(onSubmit)}
-                    className="flex gap-4"
+                    className="flex w-full flex-col gap-4 md:w-auto md:flex-row"
                 >
                     <FormField
                         control={form.control}
@@ -93,7 +93,7 @@ const App = () => {
                                 <FormControl>
                                     <Input
                                         placeholder='Array (separated by a ",")'
-                                        className="w-96"
+                                        className="w-full md:w-96"
                                         {...field}
                                     />
                                 </FormControl>
@@ -112,7 +112,7 @@ const App = () => {
                                         onValueChange={field.onChange}
                                         defaultValue={field.value}
                                     >
-                                        <SelectTrigger className="w-48">
+                                        <SelectTrigger className="w-full md:w-48">
                                             <SelectValue placeholder="Sorting algorithm" />
                                         </SelectTrigger>
 
@@ -145,8 +145,14 @@ const App = () => {
                         )}
                     />
 
-                    <Button type="submit">Next</Button>
-                    <Button type="reset" onClick={onReset}>
+                    <Button type="submit" className="w-full md:w-auto">
+                        Next
+                    </Button>
+                    <Button
+                        type="reset"
+                        className="w-full md:w-auto"
+                        onClick={onReset}
+                    >
                         Reset
                     </Button>
                 </form>
@@ -158,7 +164,7 @@ const App = () => {
                         <span
                             key={index}
                             className={`
-                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} rounded-lg p-2 text-4xl font-bold`}
+                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} rounded-lg p-2 text-2xl font-bold md:text-4xl`}
                         >
                             {item}
                         </span>
