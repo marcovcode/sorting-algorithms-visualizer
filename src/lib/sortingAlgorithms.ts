@@ -50,7 +50,7 @@ const oneStepSelectionSort = (arr: number[]) => {
         }
     }
 
-    return { next, swappedIndexes: null };
+    return { next, swappedIndexes: [] };
 };
 
 const oneStepInsertionSort = (arr: number[]) => {
@@ -73,7 +73,7 @@ const oneStepInsertionSort = (arr: number[]) => {
         }
     }
 
-    return { next, swappedIndexes: null };
+    return { next, swappedIndexes: [] };
 };
 
 const oneStepShellSort = (arr: number[]) => {

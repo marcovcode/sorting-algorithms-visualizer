@@ -1,7 +1,7 @@
 /// <reference types="vite/client" />
 interface SortingResult {
     next: number[];
-    swappedIndexes: number[] | null;
+    swappedIndexes: number[];
 }
 
 interface SortingAlgorithmsType {
