@@ -19,20 +19,16 @@ const oneStepNaiveSort = (arr: number[]) => {
 };
 
 const oneStepBubbleSort = (arr: number[]) => {
-    const next = [...arr];
-    let swappedIndexes: [number, number] | null = null;
-
-    for (let i = 0; i < next.length - 1; i++) {
-        if (next[i] > next[i + 1]) {
-            const temp = next[i];
-            next[i] = next[i + 1];
-            next[i + 1] = temp;
-            swappedIndexes = [i, i + 1];
-            break;
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = 0; j < arr.length - i; j++) {
+            if (arr[j] > arr[j + 1]) {
+                [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
+                return { next: arr, swappedIndexes: [j, j + 1] };
+            }
         }
     }
 
-    return { next, swappedIndexes };
+    return { next: arr, swappedIndexes: [] };
 };
 
 const oneStepSelectionSort = (arr: number[]) => {
