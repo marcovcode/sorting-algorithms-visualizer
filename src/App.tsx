@@ -70,6 +70,12 @@ const App = () => {
         }
     };
 
+    const onReset = () => {
+        const arrayValue = form.getValues("array");
+        setArr(arrayValue.split(",").map((n) => +n));
+        setSwappedIndexes([]);
+    };
+
     useSetTheme();
 
     return (
@@ -139,7 +145,10 @@ const App = () => {
                         )}
                     />
 
-                    <Button>Next</Button>
+                    <Button type="submit">Next</Button>
+                    <Button type="reset" onClick={onReset}>
+                        Reset
+                    </Button>
                 </form>
             </Form>
 
