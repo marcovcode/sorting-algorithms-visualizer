@@ -92,7 +92,7 @@ const App = () => {
                             <FormItem>
                                 <FormControl>
                                     <Input
-                                        placeholder='Array (separated by a ",")'
+                                        placeholder='Numbers (separated by a ",")'
                                         className="w-full md:w-96"
                                         {...field}
                                     />
