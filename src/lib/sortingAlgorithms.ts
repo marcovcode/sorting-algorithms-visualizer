@@ -1,3 +1,23 @@
+const oneStepNaiveSort = (arr: number[]) => {
+    let swappedIndexes: number[] = [];
+    let swapped = false;
+
+    for (let i = 0; i < arr.length; i++) {
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[i]) {
+                [arr[i], arr[j]] = [arr[j], arr[i]];
+                swappedIndexes = [j, i];
+                swapped = true;
+                break;
+            }
+        }
+
+        if (swapped) break;
+    }
+
+    return { next: arr, swappedIndexes };
+};
+
 const oneStepBubbleSort = (arr: number[]) => {
     const next = [...arr];
     let swappedIndexes: [number, number] | null = null;
@@ -61,6 +81,7 @@ const oneStepInsertionSort = (arr: number[]) => {
 };
 
 export const sortingAlgorithms: SortingAlgorithmsType = {
+    oneStepNaiveSort,
     oneStepBubbleSort,
     oneStepSelectionSort,
     oneStepInsertionSort,

@@ -24,6 +24,7 @@ import { sortingAlgorithms } from "./lib/sortingAlgorithms";
 import { toUpperCamelCase } from "./lib/functionNames";
 
 const sortingAlgorithmOptions = [
+    "Naive sort",
     "Bubble sort",
     "Selection sort",
     "Insertion sort",
