@@ -149,7 +149,7 @@ const App = () => {
                         <span
                             key={index}
                             className={`
-                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} p-2 text-4xl font-bold `}
+                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} rounded-lg p-2 text-4xl font-bold`}
                         >
                             {item}
                         </span>
