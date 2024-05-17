@@ -38,8 +38,8 @@ const formSchema = z.object({
 
 const App = () => {
     const [arr, setArr] = useState<number[]>([]);
-    const [swappedIndexes, setSwappedIndexes] = useState<number[] | null>(null);
-    const [previousArray, setPreviousArray] = useState<string>("");
+    const [swappedIndexes, setSwappedIndexes] = useState<number[]>();
+    const [previousArray, setPreviousArray] = useState<string>();
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
