@@ -14,6 +14,7 @@ const naiveSort = (arr: number[], steps: number) => {
                         highlights: {
                             indexes: [i, j],
                             swapped: true,
+                            sorted: false,
                         },
                     };
                 }
@@ -25,6 +26,7 @@ const naiveSort = (arr: number[], steps: number) => {
                     highlights: {
                         indexes: [i, j],
                         swapped: false,
+                        sorted: false,
                     },
                 };
             }
@@ -34,8 +36,9 @@ const naiveSort = (arr: number[], steps: number) => {
     return {
         arr,
         highlights: {
-            indexes: [],
+            indexes: arr.map((_, index) => index),
             swapped: false,
+            sorted: true,
         },
     };
 };
@@ -56,6 +59,7 @@ const bubbleSort = (arr: number[], steps: number) => {
                         highlights: {
                             indexes: [j, j + 1],
                             swapped: true,
+                            sorted: false,
                         },
                     };
                 }
@@ -67,6 +71,7 @@ const bubbleSort = (arr: number[], steps: number) => {
                     highlights: {
                         indexes: [j, j + 1],
                         swapped: false,
+                        sorted: false,
                     },
                 };
             }
@@ -76,8 +81,9 @@ const bubbleSort = (arr: number[], steps: number) => {
     return {
         arr,
         highlights: {
-            indexes: [],
+            indexes: arr.map((_, index) => index),
             swapped: false,
+            sorted: true,
         },
     };
 };
@@ -100,6 +106,7 @@ const selectionSort = (arr: number[], steps: number) => {
                     highlights: {
                         indexes: [i, j],
                         swapped: false,
+                        sorted: false,
                     },
                 };
             }
@@ -115,6 +122,7 @@ const selectionSort = (arr: number[], steps: number) => {
                     highlights: {
                         indexes: [i, minIndex],
                         swapped: true,
+                        sorted: false,
                     },
                 };
             }
@@ -126,6 +134,7 @@ const selectionSort = (arr: number[], steps: number) => {
                 highlights: {
                     indexes: [i, minIndex],
                     swapped: false,
+                    sorted: false,
                 },
             };
         }
@@ -134,8 +143,9 @@ const selectionSort = (arr: number[], steps: number) => {
     return {
         arr,
         highlights: {
-            indexes: [],
+            indexes: arr.map((_, index) => index),
             swapped: false,
+            sorted: true,
         },
     };
 };
@@ -161,6 +171,7 @@ const insertionSort = (arr: number[], steps: number) => {
                     highlights: {
                         indexes: [currentIndex, keyIndex],
                         swapped: true,
+                        sorted: false,
                     },
                 };
             }
@@ -176,6 +187,7 @@ const insertionSort = (arr: number[], steps: number) => {
                 highlights: {
                     indexes: [currentIndex, keyIndex],
                     swapped: false,
+                    sorted: false,
                 },
             };
         }
@@ -184,8 +196,9 @@ const insertionSort = (arr: number[], steps: number) => {
     return {
         arr,
         highlights: {
-            indexes: [],
+            indexes: arr.map((_, index) => index),
             swapped: false,
+            sorted: true,
         },
     };
 };
@@ -210,6 +223,7 @@ const shellSort = (arr: number[], steps: number) => {
                         highlights: {
                             indexes: [j + gap, j],
                             swapped: true,
+                            sorted: false,
                         },
                     };
                 }
@@ -225,6 +239,7 @@ const shellSort = (arr: number[], steps: number) => {
                         highlights: {
                             indexes: [i, j],
                             swapped: true,
+                            sorted: false,
                         },
                     };
                 }
@@ -238,6 +253,7 @@ const shellSort = (arr: number[], steps: number) => {
                         highlights: {
                             indexes: [i, j],
                             swapped: false,
+                            sorted: false,
                         },
                     };
                 }
@@ -248,8 +264,9 @@ const shellSort = (arr: number[], steps: number) => {
     return {
         arr,
         highlights: {
-            indexes: [],
+            indexes: arr.map((_, index) => index),
             swapped: false,
+            sorted: true,
         },
     };
 };

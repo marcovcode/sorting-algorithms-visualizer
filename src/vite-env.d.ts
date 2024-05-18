@@ -2,6 +2,7 @@
 interface Highlights {
     indexes: number[];
     swapped: boolean;
+    sorted: boolean;
 }
 
 interface SortingResult {

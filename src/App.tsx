@@ -69,6 +69,7 @@ const App = () => {
         setHighlights({
             indexes: [],
             swapped: false,
+            sorted: false,
         });
         setSteps(1);
     };
@@ -161,7 +162,7 @@ const App = () => {
                         <span
                             key={index}
                             className={`
-                            ${highlights?.indexes?.includes(index) && highlights?.swapped && "bg-primary text-primary-foreground"} ${highlights?.indexes?.includes(index) && !highlights?.swapped && "bg-secondary text-secondary-foreground"} rounded-lg p-2 text-2xl font-bold md:text-4xl`}
+                            ${highlights?.indexes?.includes(index) && highlights?.swapped && !highlights?.sorted && "bg-primary text-primary-foreground"} ${highlights?.indexes?.includes(index) && !highlights?.swapped && !highlights?.sorted && "bg-secondary text-secondary-foreground"} ${highlights?.sorted && "bg-destructive text-destructive-foreground"} rounded-lg p-2 text-2xl font-bold md:text-4xl`}
                         >
                             {item}
                         </span>
