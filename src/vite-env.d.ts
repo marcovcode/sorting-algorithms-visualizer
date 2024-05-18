@@ -1,13 +1,13 @@
 /// <reference types="vite/client" />
 interface SortingResult {
-    next: number[];
+    arr: number[];
     swappedIndexes: number[];
 }
 
 interface SortingAlgorithmsType {
-    oneStepNaiveSort: (arr: number[]) => SortingResult;
-    oneStepBubbleSort: (arr: number[]) => SortingResult;
-    oneStepSelectionSort: (arr: number[]) => SortingResult;
-    oneStepInsertionSort: (arr: number[]) => SortingResult;
-    oneStepShellSort: (arr: number[]) => SortingResult;
+    naiveSort: (arr: number[], steps: number) => SortingResult;
+    bubbleSort: (arr: number[], steps: number) => SortingResult;
+    selectionSort: (arr: number[], steps: number) => SortingResult;
+    insertionSort: (arr: number[], steps: number) => SortingResult;
+    shellSort: (arr: number[], steps: number) => SortingResult;
 }

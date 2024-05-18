@@ -21,7 +21,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useState } from "react";
 import { sortingAlgorithms } from "./lib/sortingAlgorithms";
-import { toUpperCamelCase } from "./lib/functionNames";
+import { toCamelCase } from "./lib/functionNames";
 
 const sortingAlgorithmOptions = [
     "Naive sort",
@@ -32,49 +32,42 @@ const sortingAlgorithmOptions = [
 ];
 
 const formSchema = z.object({
-    array: z.string().min(1, "This field is required"),
+    arr: z.string().min(1, "This field is required"),
     sortingAlgorithm: z.string().min(1, "This field is required"),
 });
 
 const App = () => {
     const [arr, setArr] = useState<number[]>([]);
     const [swappedIndexes, setSwappedIndexes] = useState<number[]>();
-    const [previousArray, setPreviousArray] = useState<string>();
+    const [steps, setSteps] = useState<number>(1);
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
-            array: "",
+            arr: "",
             sortingAlgorithm: "",
         },
     });
 
     const onSubmit = (values: z.infer<typeof formSchema>) => {
-        const newArray = values.array;
-        const sortingAlgorithmFunctionName = ("oneStep" +
-            toUpperCamelCase(
-                values.sortingAlgorithm,
-            )) as keyof SortingAlgorithmsType;
-        const parsedArr = newArray.split(",").map((n) => +n);
+        const parsedArr = values.arr.split(",").map((n) => +n);
+        const sortingAlgorithmFunctionName = toCamelCase(
+            values.sortingAlgorithm,
+        ) as keyof SortingAlgorithmsType;
 
-        if (previousArray === newArray) {
-            const { next, swappedIndexes } =
-                sortingAlgorithms[sortingAlgorithmFunctionName](arr);
-            setArr(next);
-            setSwappedIndexes(swappedIndexes);
-        } else {
-            const { next, swappedIndexes } =
-                sortingAlgorithms[sortingAlgorithmFunctionName](parsedArr);
-            setArr(next);
-            setSwappedIndexes(swappedIndexes);
-            setPreviousArray(newArray);
-        }
+        const { arr, swappedIndexes } = sortingAlgorithms[
+            sortingAlgorithmFunctionName
+        ](parsedArr, steps);
+        setArr(arr);
+        setSwappedIndexes(swappedIndexes);
+        setSteps((s) => s + 1);
     };
 
     const onReset = () => {
-        const arrayValue = form.getValues("array");
+        const arrayValue = form.getValues("arr");
         setArr(arrayValue.split(",").map((n) => +n));
         setSwappedIndexes([]);
+        setSteps(1);
     };
 
     useSetTheme();
@@ -88,7 +81,7 @@ const App = () => {
                 >
                     <FormField
                         control={form.control}
-                        name="array"
+                        name="arr"
                         render={({ field }) => (
                             <FormItem>
                                 <FormControl>

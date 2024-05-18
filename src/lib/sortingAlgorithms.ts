@@ -1,108 +1,126 @@
-const oneStepNaiveSort = (arr: number[]) => {
+const naiveSort = (arr: number[], steps: number) => {
+    let swapCount = 0;
     let swappedIndexes: number[] = [];
-    let swapped = false;
 
     for (let i = 0; i < arr.length; i++) {
         for (let j = i + 1; j < arr.length; j++) {
             if (arr[j] < arr[i]) {
                 [arr[i], arr[j]] = [arr[j], arr[i]];
-                swappedIndexes = [j, i];
-                swapped = true;
-                break;
+                swappedIndexes = [i, j];
+                swapCount++;
+
+                if (swapCount === steps) {
+                    return { arr, swappedIndexes };
+                }
             }
         }
-
-        if (swapped) break;
     }
 
-    return { next: arr, swappedIndexes };
+    return { arr, swappedIndexes: [] };
 };
 
-const oneStepBubbleSort = (arr: number[]) => {
+const bubbleSort = (arr: number[], steps: number) => {
+    let swapCount = 0;
+
     for (let i = 0; i < arr.length; i++) {
-        for (let j = 0; j < arr.length - i; j++) {
+        for (let j = 0; j < arr.length - 1 - i; j++) {
             if (arr[j] > arr[j + 1]) {
                 [arr[j], arr[j + 1]] = [arr[j + 1], arr[j]];
-                return { next: arr, swappedIndexes: [j, j + 1] };
+                swapCount++;
+
+                if (swapCount === steps) {
+                    return { arr, swappedIndexes: [j, j + 1] };
+                }
             }
         }
     }
 
-    return { next: arr, swappedIndexes: [] };
+    return { arr, swappedIndexes: [] };
 };
 
-const oneStepSelectionSort = (arr: number[]) => {
-    const next = [...arr];
-    let minIndex: number | null = null;
+const selectionSort = (arr: number[], steps: number) => {
+    let swapCount = 0;
 
-    for (let i = 0; i < next.length - 1; i++) {
-        minIndex = i;
-        for (let j = i + 1; j < next.length; j++) {
-            if (next[j] < next[minIndex]) {
+    for (let i = 0; i < arr.length - 1; i++) {
+        let minIndex = i;
+        for (let j = i + 1; j < arr.length; j++) {
+            if (arr[j] < arr[minIndex]) {
                 minIndex = j;
             }
         }
         if (minIndex !== i) {
-            const temp = next[i];
-            next[i] = next[minIndex];
-            next[minIndex] = temp;
-            return { next, swappedIndexes: [minIndex, i] };
+            [arr[i], arr[minIndex]] = [arr[minIndex], arr[i]];
+            swapCount++;
+            if (swapCount === steps) {
+                return { arr, swappedIndexes: [minIndex, i] };
+            }
         }
     }
 
-    return { next, swappedIndexes: [] };
+    return { arr, swappedIndexes: [] };
 };
 
-const oneStepInsertionSort = (arr: number[]) => {
-    const next = [...arr];
-    let keyIndex: number | null = null;
-    let currentIndex: number | null = null;
+const insertionSort = (arr: number[], steps: number) => {
+    let swapCount = 0;
 
-    for (let i = 1; i < next.length; i++) {
-        keyIndex = i;
-        currentIndex = i - 1;
-        while (currentIndex >= 0 && next[currentIndex] > next[keyIndex]) {
-            const temp = next[currentIndex];
-            next[currentIndex] = next[keyIndex];
-            next[keyIndex] = temp;
+    for (let i = 1; i < arr.length; i++) {
+        let keyIndex = i;
+        let currentIndex = i - 1;
+        while (currentIndex >= 0 && arr[currentIndex] > arr[keyIndex]) {
+            [arr[currentIndex], arr[keyIndex]] = [
+                arr[keyIndex],
+                arr[currentIndex],
+            ];
+            swapCount++;
+            if (swapCount === steps) {
+                return { arr, swappedIndexes: [currentIndex, keyIndex] };
+            }
             keyIndex = currentIndex;
             currentIndex--;
         }
-        if (keyIndex !== i) {
-            return { next, swappedIndexes: [currentIndex + 1, i] };
-        }
     }
 
-    return { next, swappedIndexes: [] };
+    return { arr, swappedIndexes: [] };
 };
 
-const oneStepShellSort = (arr: number[]) => {
+const shellSort = (arr: number[], steps: number) => {
     const n = arr.length;
+    let swapCount = 0;
 
     for (let gap = Math.floor(n / 2); gap > 0; gap = Math.floor(gap / 2)) {
         for (let i = gap; i < n; i++) {
             const temp = arr[i];
-            let j: number;
+            let j = i;
 
-            for (j = i; j >= gap && arr[j - gap] > temp; j -= gap)
+            while (j >= gap && arr[j - gap] > temp) {
                 arr[j] = arr[j - gap];
+                j -= gap;
+                swapCount++;
+                if (swapCount === steps) {
+                    arr[j] = temp;
+                    return { arr, swappedIndexes: [i, j] };
+                }
+            }
 
             if (j !== i) {
                 arr[j] = temp;
-                return { next: arr, swappedIndexes: [i, j] };
+                swapCount++;
+                if (swapCount === steps) {
+                    return { arr, swappedIndexes: [i, j] };
+                }
+            } else {
+                arr[j] = temp;
             }
-
-            arr[j] = temp;
         }
     }
 
-    return { next: arr, swappedIndexes: [] };
+    return { arr, swappedIndexes: [] };
 };
 
 export const sortingAlgorithms: SortingAlgorithmsType = {
-    oneStepNaiveSort,
-    oneStepBubbleSort,
-    oneStepSelectionSort,
-    oneStepInsertionSort,
-    oneStepShellSort,
+    naiveSort,
+    bubbleSort,
+    selectionSort,
+    insertionSort,
+    shellSort,
 };
