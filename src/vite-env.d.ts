@@ -1,7 +1,12 @@
 /// <reference types="vite/client" />
+interface Highlights {
+    indexes: number[];
+    swapped: boolean;
+}
+
 interface SortingResult {
     arr: number[];
-    swappedIndexes: number[];
+    highlights: Highlights;
 }
 
 interface SortingAlgorithmsType {

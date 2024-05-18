@@ -38,7 +38,7 @@ const formSchema = z.object({
 
 const App = () => {
     const [arr, setArr] = useState<number[]>([]);
-    const [swappedIndexes, setSwappedIndexes] = useState<number[]>();
+    const [highlights, setHighlights] = useState<Highlights>();
     const [steps, setSteps] = useState<number>(1);
 
     const form = useForm<z.infer<typeof formSchema>>({
@@ -55,18 +55,21 @@ const App = () => {
             values.sortingAlgorithm,
         ) as keyof SortingAlgorithmsType;
 
-        const { arr, swappedIndexes } = sortingAlgorithms[
+        const { arr, highlights } = sortingAlgorithms[
             sortingAlgorithmFunctionName
         ](parsedArr, steps);
         setArr(arr);
-        setSwappedIndexes(swappedIndexes);
+        setHighlights(highlights);
         setSteps((s) => s + 1);
     };
 
     const onReset = () => {
-        const arrayValue = form.getValues("arr");
-        setArr(arrayValue.split(",").map((n) => +n));
-        setSwappedIndexes([]);
+        const arr = form.getValues("arr");
+        setArr(arr ? arr.split(",").map((n) => +n) : []);
+        setHighlights({
+            indexes: [],
+            swapped: false,
+        });
         setSteps(1);
     };
 
@@ -158,7 +161,7 @@ const App = () => {
                         <span
                             key={index}
                             className={`
-                            ${swappedIndexes?.includes(index) && "bg-primary text-primary-foreground"} rounded-lg p-2 text-2xl font-bold md:text-4xl`}
+                            ${highlights?.indexes?.includes(index) && highlights?.swapped && "bg-primary text-primary-foreground"} ${highlights?.indexes?.includes(index) && !highlights?.swapped && "bg-secondary text-secondary-foreground"} rounded-lg p-2 text-2xl font-bold md:text-4xl`}
                         >
                             {item}
                         </span>
